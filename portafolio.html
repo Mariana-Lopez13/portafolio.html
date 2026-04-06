@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio · Diseño & Redes Sociales</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --warm-white: #f5f0e8;
+    --gold: #b8935a;
+    --gold-light: #d4ac76;
+    --dark: #1a1714;
+    --dark-mid: #2e2a26;
+    --muted: #8a7f74;
+    --border: rgba(184,147,90,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* CURSOR */
+  body { cursor: none; }
+  #cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  }
+  #cursor.big {
+    width: 40px; height: 40px;
+    background: transparent;
+    border: 1px solid var(--gold);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(250,247,242,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 4rem;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    animation: rotate 30s linear infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    animation: rotate 20s linear infinite reverse;
+  }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  .hero-text { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s ease forwards;
+    opacity: 0;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 400px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease forwards;
+    opacity: 0;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem;
+    animation: fadeUp 0.8s 0.45s ease forwards;
+    opacity: 0;
+  }
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--gold);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2rem;
+    cursor: none;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(26,23,20,0.25);
+    border-radius: 2rem;
+    cursor: none;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.8s 0.3s ease forwards;
+    opacity: 0;
+  }
+  .hero-card {
+    background: var(--dark);
+    width: 340px; height: 440px;
+    border-radius: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    box-shadow: 0 40px 80px rgba(26,23,20,0.15);
+  }
+  .hero-card-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1714 0%, #2e2016 60%, #1a1714 100%);
+  }
+  .hero-card-grid {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,147,90,0.06) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(184,147,90,0.06) 40px);
+  }
+  .hero-card-circle1 {
+    position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,147,90,0.2);
+  }
+  .hero-card-circle2 {
+    position: absolute; top: -20px; right: -20px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(184,147,90,0.06);
+    border: 1px solid rgba(184,147,90,0.15);
+  }
+  .hero-card-badge {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    background: var(--gold);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+  }
+  .hero-card-content { position: relative; z-index: 2; }
+  .hero-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .hero-card p { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 1rem; }
+  .hero-card-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    border: 1px solid rgba(184,147,90,0.3);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .floating-stat {
+    position: absolute;
+    background: white;
+    border-radius: 1rem;
+    padding: 0.8rem 1.2rem;
+    box-shadow: 0 10px 30px rgba(26,23,20,0.1);
+    min-width: 130px;
+  }
+  .floating-stat-1 { bottom: 60px; left: -50px; }
+  .floating-stat-2 { top: 60px; right: -40px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SERVICES */
+  section { padding: 6rem 4rem; }
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--dark);
+    max-width: 500px;
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-sub { color: var(--muted); max-width: 450px; line-height: 1.7; font-size: 0.95rem; margin-bottom: 3.5rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: white;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,23,20,0.08); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: rgba(184,147,90,0.1);
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+    color: var(--dark);
+  }
+  .service-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+  .service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .service-price span { font-size: 0.75rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+
+  /* PORTFOLIO */
+  #portafolio { background: var(--warm-white); }
+  .portfolio-filter {
+    display: flex; gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.2rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: white;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .portfolio-item {
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/5;
+    cursor: none;
+    transition: transform 0.3s ease;
+  }
+  .portfolio-item:hover { transform: scale(1.02); }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-item:first-child {
+    grid-column: span 2;
+    aspect-ratio: 8/5;
+  }
+  .portfolio-mock {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    font-family: 'Cormorant Garamond', serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .mock-1 { background: linear-gradient(135deg, #1a1714 0%, #2e2016 100%); }
+  .mock-2 { background: linear-gradient(135deg, #f5eee3 0%, #e8d5ba 100%); }
+  .mock-3 { background: linear-gradient(135deg, #e8f0f5 0%, #c5d8e8 100%); }
+  .mock-4 { background: linear-gradient(135deg, #1c2430 0%, #0f1a26 100%); }
+  .mock-5 { background: linear-gradient(135deg, #f9f0f5 0%, #edcfe0 100%); }
+  .mock-inner {
+    width: 85%; height: 80%;
+    border-radius: 0.75rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .mi1 { background: rgba(184,147,90,0.15); border: 1px solid rgba(184,147,90,0.3); }
+  .mi2 { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8); }
+  .mi3 { background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.7); }
+  .mi4 { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); }
+  .mi5 { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8); }
+
+  .mock-inner .mock-title {
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    margin-bottom: 0.3rem;
+  }
+  .mock-inner .mock-sub { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+  .mock-inner .mock-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 2rem;
+    display: inline-block;
+    margin: 0.15rem;
+  }
+  .mb-gold { background: var(--gold); color: white; }
+  .mb-dark { background: var(--dark); color: white; }
+  .mb-white { background: white; color: var(--dark); }
+  .mb-outline { border: 1px solid currentColor; background: transparent; }
+
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26,23,20,0.85);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    padding: 2rem;
+    text-align: center;
+  }
+  .portfolio-overlay h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 0.4rem;
+  }
+  .portfolio-overlay p { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+  .overlay-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(184,147,90,0.4);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2rem;
+    margin: 0 0.2rem;
+  }
+
+  /* PROCESS */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  .process-step { position: relative; }
+  .process-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 20px; left: calc(100% - 10px);
+    width: calc(100% - 20px);
+    height: 1px;
+    background: var(--border);
+  }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .process-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+  .process-step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  #testimonios { background: var(--dark); }
+  #testimonios .section-tag { color: var(--gold-light); }
+  #testimonios .section-title { color: white; max-width: 100%; }
+  #testimonios .section-sub { color: rgba(255,255,255,0.4); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .testi-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.07); }
+  .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+  .testi-name { font-size: 0.85rem; font-weight: 500; color: white; }
+  .testi-biz { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+
+  /* CONTACT */
+  #contacto { background: var(--warm-white); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .contact-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 1.2rem;
+    line-height: 1.1;
+  }
+  .contact-info h2 em { font-style: italic; color: var(--gold); }
+  .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+  }
+  .ci-icon {
+    width: 36px; height: 36px;
+    background: rgba(184,147,90,0.1);
+    border-radius: 0.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .ci-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ci-value { font-size: 0.9rem; color: var(--dark); font-weight: 400; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .form-group input, .form-group textarea, .form-group select {
+    padding: 0.85rem 1rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    padding: 1rem 2rem;
+    background: var(--gold);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2rem;
+    cursor: none;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: white;
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+  .footer-social { display: flex; gap: 1rem; }
+  .footer-social a {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .hero { grid-template-columns: 1fr; padding: 2rem; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 2rem; }
+    .services-grid, .portfolio-grid, .testi-grid { grid-template-columns: 1fr; }
+    .portfolio-item:first-child { grid-column: span 1; aspect-ratio: 4/5; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Marianna<span>López</span></a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#portafolio">Portafolio</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-text">
+    <div class="hero-tag">Diseño · Redes Sociales · Crecimiento</div>
+    <h1>Hago que tu<br>negocio se vea<br><em>irresistible.</em></h1>
+    <p class="hero-sub">Diseño flyers, contenido y estrategia para que tu negocio destaque en redes y atraiga más clientes.</p>
+    <div class="hero-ctas">
+      <a href="#portafolio" class="btn-primary">Ver portafolio</a>
+      <a href="#contacto" class="btn-outline">Hablemos</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position: relative;">
+      <div class="hero-card">
+        <div class="hero-card-bg"></div>
+        <div class="hero-card-grid"></div>
+        <div class="hero-card-circle1"></div>
+        <div class="hero-card-circle2"></div>
+        <span class="hero-card-badge">Nuevo diseño</span>
+        <div class="hero-card-content">
+          <h3>Luna Salón<br>de Belleza</h3>
+          <p>Identidad visual · Redes Sociales</p>
+          <span class="hero-card-tag">Flyer</span>
+          <span class="hero-card-tag">Instagram</span>
+          <span class="hero-card-tag">Branding</span>
+        </div>
+      </div>
+      <div class="floating-stat floating-stat-1">
+        <div class="stat-num">+340%</div>
+        <div class="stat-label">Alcance en 30 días</div>
+      </div>
+      <div class="floating-stat floating-stat-2">
+        <div class="stat-num">12k</div>
+        <div class="stat-label">Nuevos seguidores</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-tag">Lo que ofrezco</div>
+  <h2 class="section-title">Servicios que <em>generan resultados</em></h2>
+  <p class="section-sub">Todo lo que tu negocio necesita para verse profesional y atraer más clientes en redes sociales.</p>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🎨</div>
+      <h3>Diseño de Flyers</h3>
+      <p>Diseños llamativos para promociones, eventos o lanzamientos. Listos para imprimir o publicar digitalmente.</p>
+      <div class="service-price">desde $150 <span>/ diseño</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📱</div>
+      <h3>Contenido para Redes</h3>
+      <p>Posts, stories y reels diseñados con estrategia para generar engagement y atraer seguidores reales.</p>
+      <div class="service-price">desde $800 <span>/ mes</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">✨</div>
+      <h3>Identidad Visual</h3>
+      <p>Logo, paleta de colores, tipografías y guía de marca para que tu negocio tenga presencia consistente.</p>
+      <div class="service-price">desde $1,200 <span>/ paquete</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📊</div>
+      <h3>Gestión de Redes</h3>
+      <p>Me encargo de todo: publicaciones, hashtags, respuestas y estrategia para crecer mes a mes.</p>
+      <div class="service-price">desde $2,500 <span>/ mes</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎬</div>
+      <h3>Plantillas de Reels</h3>
+      <p>Plantillas editables en CapCut o Canva para que puedas publicar videos con un look profesional siempre.</p>
+      <div class="service-price">desde $400 <span>/ pack</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🚀</div>
+      <h3>Paquete Lanzamiento</h3>
+      <p>Todo lo que necesitas para abrir o relanzar tu negocio: flyer, portada, 10 posts y estrategia de contenido.</p>
+      <div class="service-price">desde $3,000 <span>/ paquete</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAFOLIO -->
+<section id="portafolio">
+  <div class="section-tag">Evidencias de trabajo</div>
+  <h2 class="section-title">Portafolio <em>de proyectos</em></h2>
+  <p class="section-sub">Cada proyecto es único. Aquí puedes ver algunos ejemplos de lo que puedo hacer para tu negocio.</p>
+
+  <div class="portfolio-filter">
+    <button class="filter-btn active">Todos</button>
+    <button class="filter-btn">Salón de belleza</button>
+    <button class="filter-btn">Restaurante</button>
+    <button class="filter-btn">Tienda</button>
+    <button class="filter-btn">Gym / Salud</button>
+  </div>
+
+  <div class="portfolio-grid">
+    <!-- Item grande -->
+    <div class="portfolio-item reveal">
+      <div class="portfolio-mock mock-1">
+        <div class="mock-inner mi1">
+          <div class="mock-title" style="color:#c9a96e; font-size:1.8rem;">Luna Salón</div>
+          <div class="mock-sub" style="color:rgba(255,255,255,0.5);">Identidad completa</div>
+          <div>
+            <span class="mock-badge mb-gold">Flyer</span>
+            <span class="mock-badge" style="color:#c9a96e; border:1px solid rgba(184,147,90,0.4); background:transparent; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Portada FB</span>
+            <span class="mock-badge" style="color:#c9a96e; border:1px solid rgba(184,147,90,0.4); background:transparent; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Stories</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-overlay">
+        <h4>Luna Salón de Belleza</h4>
+        <p>Identidad visual completa + gestión de redes por 2 meses</p>
+        <span class="overlay-tag">Branding</span>
+        <span class="overlay-tag">Redes</span>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="portfolio-item reveal">
+      <div class="portfolio-mock mock-2">
+        <div class="mock-inner mi2">
+          <div class="mock-title" style="color:#4a3520;">Café Miel</div>
+          <div class="mock-sub" style="color:#8a7060;">Menú Digital</div>
+          <div>
+            <span class="mock-badge mb-dark">Menú</span>
+            <span class="mock-badge" style="background:#8a7060; color:white; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Flyer</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-overlay">
+        <h4>Café Miel</h4>
+        <p>Flyer de temporada + menú digital para WhatsApp</p>
+        <span class="overlay-tag">Diseño</span>
+        <span class="overlay-tag">Gastro</span>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="portfolio-item reveal">
+      <div class="portfolio-mock mock-3">
+        <div class="mock-inner mi3">
+          <div class="mock-title" style="color:#1a3a5c;">FitPro Gym</div>
+          <div class="mock-sub" style="color:#3a7ab0;">Contenido mensual</div>
+          <div>
+            <span class="mock-badge" style="background:#1a3a5c; color:white; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Posts</span>
+            <span class="mock-badge" style="background:#3a7ab0; color:white; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Reels</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-overlay">
+        <h4>FitPro Gym</h4>
+        <p>20 posts + 8 reels + historias semanales</p>
+        <span class="overlay-tag">Social</span>
+        <span class="overlay-tag">Salud</span>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="portfolio-item reveal">
+      <div class="portfolio-mock mock-4">
+        <div class="mock-inner mi4">
+          <div class="mock-title" style="color:white; font-size:1.2rem;">Noche de Gala</div>
+          <div class="mock-sub" style="color:rgba(255,255,255,0.4);">Evento VIP</div>
+          <div>
+            <span class="mock-badge" style="color:#c9a96e; border:1px solid rgba(184,147,90,0.5); background:transparent; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Invitación</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-overlay">
+        <h4>Evento Gala VIP</h4>
+        <p>Invitación digital + flyer promocional de evento</p>
+        <span class="overlay-tag">Evento</span>
+        <span class="overlay-tag">Lujo</span>
+      </div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="portfolio-item reveal">
+      <div class="portfolio-mock mock-5">
+        <div class="mock-inner mi5">
+          <div class="mock-title" style="color:#6a1a3a; font-size:1.2rem;">Bloom Boutique</div>
+          <div class="mock-sub" style="color:#c060a0;">Tienda de ropa</div>
+          <div>
+            <span class="mock-badge" style="background:#c060a0; color:white; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Feed</span>
+            <span class="mock-badge" style="background:#6a1a3a; color:white; padding:0.25rem 0.7rem; border-radius:2rem; font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; display:inline-block; margin:0.15rem;">Stories</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-overlay">
+        <h4>Bloom Boutique</h4>
+        <p>Feed de Instagram + estrategia de hashtags</p>
+        <span class="overlay-tag">Moda</span>
+        <span class="overlay-tag">Instagram</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-tag">Cómo trabajo</div>
+  <h2 class="section-title">Un proceso <em>simple y claro</em></h2>
+  <p class="section-sub">Sin complicaciones. Me adapto a tu negocio y te mantengo al tanto de todo desde el inicio.</p>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <h4>Plática inicial</h4>
+      <p>Hablamos de tu negocio, tus metas y lo que necesitas. Sin costo y sin compromiso.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <h4>Propuesta y cotización</h4>
+      <p>Te mando un plan personalizado con precios claros según lo que necesites.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <h4>Diseño y revisión</h4>
+      <p>Creo los materiales y te los mando para que los revises. Ajustamos lo que necesites.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <h4>Entrega y seguimiento</h4>
+      <p>Recibes tus archivos listos para usar y te apoyo para que los publiques correctamente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="section-tag">Clientes felices</div>
+  <h2 class="section-title" style="color:white; max-width:100%;">Lo que dicen mis <em style="color:var(--gold-light);">clientes</em></h2>
+  <p class="section-sub" style="color:rgba(255,255,255,0.35); margin-bottom:3rem;">Resultados reales de negocios reales en Puebla.</p>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Desde que empezamos a trabajar juntos, nuestras reservas aumentaron un 40%. Los flyers son increíbles y muy profesionales."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#d4ac76;">MG</div>
+        <div>
+          <div class="testi-name">María González</div>
+          <div class="testi-biz">Luna Salón de Belleza</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"No sabía nada de redes sociales y me lo explicó todo. Ahora tenemos más de 2 mil seguidores y nuestros clientes nos encuentran en Instagram."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#7ab0d4;">CR</div>
+        <div>
+          <div class="testi-name">Carlos Ramírez</div>
+          <div class="testi-biz">Café Miel · Centro Histórico</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"El paquete de lanzamiento fue perfecta para abrir mi boutique. Todo quedó muy bonito y mis clientes siempre preguntan quién me hace el diseño."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#d4a0c0;">LP</div>
+        <div>
+          <div class="testi-name">Lupita Pérez</div>
+          <div class="testi-biz">Bloom Boutique</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <div class="section-tag">¿Listo para crecer?</div>
+      <h2>Hablemos de tu <em>negocio</em></h2>
+      <p>Mándame un mensaje y en menos de 24 horas te respondo con ideas y una propuesta para tu negocio.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="ci-icon">📱</div>
+          <div>
+            <div class="ci-label">WhatsApp</div>
+            <div class="ci-value">221 265 7981</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📧</div>
+          <div>
+            <div class="ci-label">Correo</div>
+            <div class="ci-value">lopezmariannadesigner@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📸</div>
+          <div>
+            <div class="ci-label">Instagram</div>
+            <div class="ci-value">@mariannalordz</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Ciudad</div>
+            <div class="ci-value">Puebla, México · Trabajo remoto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tú nombre</label>
+            <input type="text" placeholder="Ana López">
+          </div>
+          <div class="form-group">
+            <label>Negocio</label>
+            <input type="text" placeholder="Mi Salón">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp o correo</label>
+          <input type="text" placeholder="222 000 0000">
+        </div>
+        <div class="form-group">
+          <label>¿Qué necesitas?</label>
+          <select>
+            <option>Diseño de flyers</option>
+            <option>Contenido para redes</option>
+            <option>Identidad visual</option>
+            <option>Gestión de redes</option>
+            <option>Paquete lanzamiento</option>
+            <option>Otro / No sé aún</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Cuéntame más (opcional)</label>
+          <textarea rows="4" placeholder="Tengo un salón y quiero más clientes..."></textarea>
+        </div>
+        <button class="form-submit" onclick="alert('¡Gracias! En breve te contacto 😊')">Enviar mensaje →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Marianna<span>López</span></div>
+  <p>© 2026 · Diseño & Redes Sociales · Puebla, México</p>
+  <div class="footer-social">
+    <a href="#">ig</a>
+    <a href="#">fb</a>
+    <a href="#">wa</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, .portfolio-item, .service-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Portfolio filter (visual only)
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
